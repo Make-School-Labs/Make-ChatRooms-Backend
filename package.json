@@ -12,6 +12,7 @@
     "express": "^4.16.4",
     "http": "0.0.0",
     "localStorage": "^1.0.4",
-    "socket-io": "^1.0.0"
+    "nodemon": "^1.18.10",
+    "socket.io": "^2.2.0"
   }
 }
