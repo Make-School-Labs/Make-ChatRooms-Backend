@@ -6,6 +6,8 @@ The purpose of this project is to provide a server that the iOS client can liste
 
 This server provides simple events and event emitters that are explained here!
 
+Please take a look at the main server code if you see anything unsightly! Full documentation provided within the source code!
+
 
 ## Getting Started
 
