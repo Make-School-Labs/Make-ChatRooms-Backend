@@ -27,3 +27,11 @@ This server provides simple events and event emitters that are explained here!
     * `socket.on("leaveRoom")` Triggered when client decided to leave room they are currently in!
     ######
     * `socket.on("disconnect")` Triggered when client disconnects from server therefore abandoning socket connection!
+
+######
+2. These events are **emitted(sent out)** when a certain event is triggered!
+    * `socket.emit("validUsername")` Triggered after client sends username to confirm that username they have chosen is valid!
+    ######
+    * `socket.emit("usernameCollision")` Triggered after a client sends a username that interferes with a username that is already present on a socket connection!
+    ######
+    * `socket.broadcast.to("roomName?").emit("chat message")` Triggered after client sends a chat message ... broadcast(send to everyone except the initiating user) to everyone in the same room that the message was sent from!
