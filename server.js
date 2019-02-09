@@ -36,6 +36,37 @@ io.on('connection', function (socket) {
         }
     });
 
+    // Triggered when a user wants to create/join a room
+    socket.on("joinRoom", function (roomName) {
+        socket.join(roomName)
+
+        io.of("/").in(roomName).clients((error, clients) => {
+            if (error) {
+                console.log(error)
+            }
+            for (i = 0; i < clients.length; i++) {
+                client = clients[i]
+                console.log("Client connected " + getKeyByValue(localStorage, client))
+            }
+        })
+    });
+
+    // Triggered when client wants to leave the room they are currently connected to
+    socket.on("leaveRoom", function (roomName) {
+        console.log("Leaving room " + roomName)
+        socket.leave(roomName);
+    });
+
+    // Triggered when the user disconnects and their socket connections gets disbanded!
+    socket.on('disconnect', function () { 
+        console.log("User has disconnected!") // No special teardown needed on our part
+
+        username = getKeyByValue(localStorage, socket.id); // Fetch the username associated with the socket connection
+
+        localStorage.removeItem(username) // Remove that key value pair and print the local storage after the key value pair has been removed
+        console.log(localStorage)
+
+    });
 
 });
 
