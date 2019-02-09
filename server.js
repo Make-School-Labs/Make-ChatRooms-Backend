@@ -49,7 +49,7 @@ io.on('connection', function (socket) {
             }
             for (i = 0; i < clients.length; i++) {
                 client = clients[i]
-                console.log("Clients connected " + getKeyByValue(localStorage, client))
+                console.log(" " + " Clients connected " + getKeyByValue(localStorage, client))
             }
         })
     });
