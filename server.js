@@ -11,16 +11,18 @@ io.on('connection', function (socket) {
     console.log("New User Has Connected!") // Outputted to terminal to notify you that a new user has connected
 
     socket.on('chat message', function (message) { // Listening for an incoming chat message
-        // console.log("SOCKET ID " + socket.username + " " + socket.id)
-        // console.log("Incoming Message " + message)
-        console.log("Incoming Message -> ", message)
-        console.log("Message sent from -> ( ", socket.username, " ", socket.id, ")")
+        username = getKeyByValue(localStorage, socket.id)
         parsedMessage = JSON.parse(message) // Converts message JSON string into a JSON Object
+
+        console.log("Incoming Message -> ", parsedMessage)
+        console.log("Message sent from -> ( ", username, " ", socket.id, ")")
         socket.broadcast.to(parsedMessage.roomOriginName).emit('chat message', message) // Broadcasts message to everyone in the room that the message was sent from except the sender
     });
 
     // Listening for when the client sends in a username for the given socket connection!
     socket.on("socketUsername", function (username) {
+        console.log(username + " is the username being sent!") // Outputted to terminal
+
         socket.nickname = username // Assigning the socket nickname to be the username that the client passes
 
         // Checking if username is already present
@@ -38,6 +40,7 @@ io.on('connection', function (socket) {
 
     // Triggered when a user wants to create/join a room
     socket.on("joinRoom", function (roomName) {
+        console.log(socket.id + " has joined the room " + roomName)
         socket.join(roomName)
 
         io.of("/").in(roomName).clients((error, clients) => {
@@ -46,7 +49,7 @@ io.on('connection', function (socket) {
             }
             for (i = 0; i < clients.length; i++) {
                 client = clients[i]
-                console.log("Client connected " + getKeyByValue(localStorage, client))
+                console.log("Clients connected " + getKeyByValue(localStorage, client))
             }
         })
     });
