@@ -15,13 +15,13 @@ io.on('connection', function (socket) {
         parsedMessage = JSON.parse(message) // Converts message JSON string into a JSON Object
 
         console.log("Incoming Message -> ", parsedMessage)
-        console.log("Message sent from -> ( ", username, " ", socket.id, ")")
+        console.log("Message sent from -> ( ", parsedMessage.roomOriginName, " ", socket.id, ")")
         socket.broadcast.to(parsedMessage.roomOriginName).emit('chat message', message) // Broadcasts message to everyone in the room that the message was sent from except the sender
     });
 
     // Listening for when the client sends in a username for the given socket connection!
     socket.on("socketUsername", function (username) {
-        console.log(username + " is the username being sent!") // Outputted to terminal
+        console.log(username + " has connected to the server!") // Outputted to terminal
 
         socket.nickname = username // Assigning the socket nickname to be the username that the client passes
 
